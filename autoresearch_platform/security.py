@@ -48,11 +48,14 @@ def scan_tree(root: Path) -> list[Finding]:
             continue
 
         name = path.name.lower()
-        if name in BLOCKED_NAMES or path.suffix.lower() in BLOCKED_SUFFIXES:
+        if (
+            (name in BLOCKED_NAMES or path.suffix.lower() in BLOCKED_SUFFIXES)
+            and not name.endswith(".example")
+            and ".example." not in name
+        ):
             # Allow public-safe examples.
-            if not name.endswith(".example") and ".example." not in name:
-                findings.append(Finding(path, "blocked credential/secret filename"))
-                continue
+            findings.append(Finding(path, "blocked credential/secret filename"))
+            continue
 
         # Raw paper PDFs are intentionally local-only.
         if "reference_papers_origin" in path.parts and path.name != ".gitkeep":

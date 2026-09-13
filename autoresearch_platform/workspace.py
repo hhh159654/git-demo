@@ -100,7 +100,9 @@ def research_config(paper_name: str, topic: str, domain: str) -> dict[str, Any]:
     }
 
 
-def init_paper(root: Path, paper_name: str, topic: str, domain: str, *, force: bool = False) -> Path:
+def init_paper(
+    root: Path, paper_name: str, topic: str, domain: str, *, force: bool = False
+) -> Path:
     paper_dir = root / paper_name
     if paper_dir.exists() and any(paper_dir.iterdir()) and not force:
         raise FileExistsError(
