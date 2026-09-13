@@ -1,18 +1,84 @@
 paper_id: paper1
-topic: 'TODO: define a concrete research question'
-domain: EDA / analog circuit simulation
+
+topic: "Sensitivity-Supervised Analog Circuit Representation Learning for Cross-Topology Transfer"
+
+domain: "EDA / analog circuit representation learning"
+
+research_question: >
+  Can simulator-generated component-level interventions provide supervision
+  for learning analog circuit representations that encode circuit sensitivity
+  and functional behavior, and therefore transfer better to unseen circuit
+  topologies and downstream tasks than topology-only or static-state
+  representations?
+
+working_hypothesis: >
+  If a representation model is trained to predict how circuit-level electrical
+  responses change when individual component parameters are perturbed, the
+  learned representation will capture component importance, design sensitivity,
+  and circuit functionality. These properties should improve low-data transfer
+  to previously unseen circuit topologies.
+
 target:
   baseline: strong CCF-C
   stretch: weak CCF-B
+
 agents:
   reviewer: ChatGPT Web
   implementer: Codex CLI
+
+simulator:
+  name: HSPICE
+
+  intervention:
+    description: >
+      Apply small component-level parameter perturbations and observe the
+      corresponding changes in circuit-level electrical responses.
+
+    initial_relative_perturbations:
+      - -0.05
+      - 0.05
+
+    candidate_parameters:
+      - MOS width
+      - MOS length
+      - resistance
+      - capacitance
+
+  response_metrics:
+    - gain
+    - bandwidth
+    - phase_margin
+    - power
+
+representation:
+  supervision: component-level sensitivity response
+
+  normalized_sensitivity: >
+    S_ik = (delta y_k / y_k) / (delta p_i / p_i)
+
+evaluation:
+  primary_setting: held-out topology transfer
+
+  downstream_label_fractions:
+    - 0.01
+    - 0.05
+    - 0.10
+    - 0.20
+    - 1.00
+
+  core_comparisons:
+    - topology_only
+    - topology_plus_static_operating_state
+    - topology_plus_simulator_performance
+    - topology_plus_sensitivity_supervision
+
 compute:
   local_conda_env: auto_research
-  python: '3.12'
+  python: "3.12"
   remote_gpu: A800
   max_remote_gpus: 1
   remote_credentials_policy: local-only; never commit
+
 git:
   recommended_branch: paper1
   raw_papers_committed: false
