@@ -1,0 +1,19 @@
+paper_id: paper1
+topic: 'TODO: define a concrete research question'
+domain: EDA / analog circuit simulation
+target:
+  baseline: strong CCF-C
+  stretch: weak CCF-B
+agents:
+  reviewer: ChatGPT Web
+  implementer: Codex CLI
+compute:
+  local_conda_env: auto_research
+  python: '3.12'
+  remote_gpu: A800
+  max_remote_gpus: 1
+  remote_credentials_policy: local-only; never commit
+git:
+  recommended_branch: paper1
+  raw_papers_committed: false
+  processed_papers_committed: true

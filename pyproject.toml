@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "autoresearch-platform"
+version = "0.1.0"
+description = "Workflow scaffold for ChatGPT reviewer + Codex CLI + Git + remote GPU AutoResearch."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+  "PyYAML>=6.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "black>=24.0",
+  "ruff>=0.6",
+  "pytest>=8.0",
+]
+
+[project.scripts]
+autoresearch = "autoresearch_platform.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["autoresearch_platform*"]
+
+[tool.black]
+line-length = 100
+target-version = ["py312"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

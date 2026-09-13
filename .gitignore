@@ -1,0 +1,61 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info/
+
+# Environments
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+.conda/
+.local-deps/
+
+# Local vendor clone
+.vendor/
+
+# Local/private configuration
+config/local/
+sshconfig.md
+**/sshconfig.md
+*.pem
+*.key
+id_rsa
+id_ed25519
+known_hosts.local
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Research raw papers: keep only placeholder
+paper*/reference_papers_origin/*
+!paper*/reference_papers_origin/.gitkeep
+templates/paper/reference_papers_origin/*
+!templates/paper/reference_papers_origin/.gitkeep
+
+# Typical heavy experiment artifacts
+paper*/experiments/checkpoints/
+paper*/experiments/cache/
+paper*/results/tensorboard/
+paper*/results/wandb/
+paper*/results/*.ckpt
+paper*/results/*.pt
+paper*/results/*.pth
+paper*/results/*.safetensors
+
+# Secrets / credentials
+*.secret
+*.credentials
